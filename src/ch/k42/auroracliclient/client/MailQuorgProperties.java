@@ -1,4 +1,4 @@
-package client;
+package ch.k42.auroracliclient.client;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

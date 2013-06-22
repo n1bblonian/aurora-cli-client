@@ -1,4 +1,4 @@
-package client;
+package ch.k42.auroracliclient.client;
 
 /**
  * Created with IntelliJ IDEA.

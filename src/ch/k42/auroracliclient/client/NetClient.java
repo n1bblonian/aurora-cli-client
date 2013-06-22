@@ -1,4 +1,4 @@
-package client;/**
+package ch.k42.auroracliclient.client;/**
  * Created with IntelliJ IDEA.
  * User: thomas
  * Date: 6/8/13
@@ -9,15 +9,7 @@ package client;/**
  * To change this template use File | Settings | File Templates.
  */
 
-import ch.k42.auroraprime.core.IMatrix;
-import ch.k42.auroraprime.core.MatrixManager;
-import ch.k42.auroraprime.minions.Log;
-import ch.k42.auroraprime.multicast.ALDevice;
-import ch.k42.auroraprime.multicast.IDeviceDiscovery;
-import ch.k42.auroraprime.multicast.IDeviceDiscoveryFactory;
-import ch.k42.auroraprime.net.AthmosClient;
-import ch.k42.auroraprime.net.DTO.Request;
-import ch.k42.auroraprime.net.IClient;
+import ch.k42.auroracliclient.net.*;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -36,14 +28,6 @@ public class NetClient {
 
     private static final String TAG = "NetClient";
     private static String[] quorgs;
-
-    private void listM(){
-        Map<Integer,IMatrix> matrices = MatrixManager.getInstance().getSender().getMatrices();
-        for(IMatrix m : matrices.values()){
-            p("Address: " + m.getAddress() + " : ");
-            l(m.toString());
-        }
-    }
 
     private static void p(String s){
         System.out.print(s);
@@ -71,7 +55,7 @@ public class NetClient {
                 l(discoveredDevices.get(i).toString());
             }
             l("Select device by number:");   // Select ALDevice by typing in number
-            int dev = -1;
+            int dev;
             do {
                 try {
                     dev = Integer.parseInt(in.readLine());
@@ -94,7 +78,7 @@ public class NetClient {
             System.exit(1);
         }
 
-        // ==== We should now be connected to one client, handle Client interaction
+        // ==== We should now be connected to one ch.k42.auroracliclient.client, handle Client interaction
         l("Connected. Ready for user.");
         String line;
 
@@ -169,12 +153,13 @@ public class NetClient {
                                 matrix = -1;
                             }
                         } while (matrix<1);
-                        Serializable[] qargs = new Serializable[3];
-                        qargs[0] = new Integer(matrix);
-                        qargs[1] = classname;
-                        qargs[2] = settings;
-                        Log.d(TAG,"Request: args[0]="+qargs[0]+" args[1]="+qargs[1]+" args[2]="+qargs[2]);
-                        Request response = (Request) client.sendRequest(new Request(Request.Command.SETQUORG,qargs));
+
+                        //---- create a new Request
+                        SetRequestBuilder srb = new SetRequestBuilder();
+                        srb.setMatrix(matrix)
+                                .setClassname(classname)
+                                .setSettings(settings);
+                        Request response = (Request) client.sendRequest(srb.getRequest());
                         l("Request " + (response.wasHandled() ? "successful :)" : "failed :("));
 
                     } catch (Exception e) {
@@ -185,7 +170,7 @@ public class NetClient {
 
                     Request response = null;
                     try {
-                        response = (Request) client.sendRequest(new Request(Request.Command.GETUPDATE,null));
+                        response = (Request) client.sendRequest(new GetRequestBuilder().getRequest());
                     } catch (Exception e) {
                         Log.e(TAG,e.getMessage());
                     }
