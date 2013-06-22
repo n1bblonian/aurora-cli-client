@@ -1,6 +1,7 @@
 package ch.k42.auroracliclient.net;
-import ch.k42.auroraprime.minions.ALSettings;
-import ch.k42.auroraprime.minions.Log;
+
+
+import ch.k42.auroracliclient.client.Log;
 
 import java.io.IOException;
 import java.net.*;
@@ -52,7 +53,7 @@ public class DeviceDiscovery implements IDeviceDiscovery {
                         socket.receive(packet);
                         String str = new String(packet.getData(),0,packet.getLength());
 
-                        Log.v(TAG,"Got ACK       : " + str);
+                        Log.v(TAG, "Got ACK       : " + str);
                         Log.v(TAG,"Packet length : " + packet.getLength());
                         Log.v(TAG,"Message from server: "+str);
                         String strs[] = str.split(";");
@@ -82,15 +83,15 @@ public class DeviceDiscovery implements IDeviceDiscovery {
     //==== Actual class
 
     public DeviceDiscovery(){
-        String ip = ALSettings.getProperty("multicastIP");
-        Integer port = null;
-        try {
-            port = Integer.parseInt(ALSettings.getProperty("multicastPort"));
-        } catch (NumberFormatException e) {}
-        if(ip!=null)
-            MULTICAST_GROUP = ip;
-        if(port!=null)
-            MULTICAST_PORT = port;
+//        String ip = ALSettings.getProperty("multicastIP");
+//        Integer port = null;
+//        try {
+//            port = Integer.parseInt(ALSettings.getProperty("multicastPort"));
+//        } catch (NumberFormatException e) {}
+//        if(ip!=null)
+//            MULTICAST_GROUP = ip;
+//        if(port!=null)
+//            MULTICAST_PORT = port;
 
     }
 
@@ -99,8 +100,7 @@ public class DeviceDiscovery implements IDeviceDiscovery {
 		DiscoveryThread test;
 		List<ALDevice> list = new ArrayList<ALDevice>();
 		try {
-            String devString = ALSettings.getProperty("deviceString");
-            if(devString==null) devString = "Anonymous Client";
+            String devString = "NetClient";
 			test = new DiscoveryThread(devString, list);
 			test.start();
 			

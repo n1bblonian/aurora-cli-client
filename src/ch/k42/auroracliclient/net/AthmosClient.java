@@ -1,6 +1,6 @@
 package ch.k42.auroracliclient.net;
 
-import ch.k42.auroraprime.minions.Log;
+import ch.k42.auroracliclient.client.Log;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -45,7 +45,7 @@ public class AthmosClient implements IClient {
 			Object o = in.readObject(); // await a response from the server
 			return o;
 		} catch (Exception e) {
-            Log.e(TAG,"Unable to send Request. Cause: " + e.getCause() +" // "+ e.getMessage());
+            Log.e(TAG, "Unable to send Request. Cause: " + e.getCause() + " // " + e.getMessage());
 		}
 		return null;
 	}
