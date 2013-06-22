@@ -1,4 +1,4 @@
-package ch.k42.auroracliclient.client;
+package ch.k42.auroracliclient.net;
 
 import ch.k42.auroracliclient.net.Request;
 import ch.k42.auroracliclient.net.RequestBuilder;
@@ -10,7 +10,7 @@ import java.io.Serializable;
  * User: Thomas
  * Date: 22.06.13
  * Time: 16:27
- * To change this template use File | Settings | File Templates.
+ * TODO: JAVADOC!
  */
 public class GetRequestBuilder implements RequestBuilder {
     private static final Request.Command cmd = Request.Command.GETUPDATE;

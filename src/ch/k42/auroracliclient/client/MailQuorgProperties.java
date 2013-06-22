@@ -21,10 +21,11 @@ public class MailQuorgProperties implements QuorgProperties {
      * @return this, for methodchaining
      */
     public MailQuorgProperties setUsername(String username){
-        Pattern p = Pattern.compile("\b[a-z0-9_%-]+.[a-z0-9_%-]*@gmail.com\b");
+        username.trim();
+        Pattern p = Pattern.compile("\b[a-z0-9+.]+@gmail.com\b");
         Matcher m = p.matcher(username);
         boolean b = m.matches();
-
+        if(!b) username = "InvalidGmailAddress";
         settings[0] = username;
         return this;
     }
@@ -32,7 +33,7 @@ public class MailQuorgProperties implements QuorgProperties {
     /**
      * The password to the mailaccount which should be
      * checked
-     * @param username a Gmail account password
+     * @param password a Gmail account password
      * @return this, for methodchaining
      */
     public MailQuorgProperties setPassword(String password){

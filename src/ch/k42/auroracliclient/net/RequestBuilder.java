@@ -1,6 +1,7 @@
 package ch.k42.auroracliclient.net;
 
-import java.io.Serializable;
+
+import ch.k42.auroracliclient.client.QuorgProperties;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,5 +11,9 @@ import java.io.Serializable;
  * To change this template use File | Settings | File Templates.
  */
 public interface RequestBuilder {
+    /**
+     * Builds a Request, ready to send
+     * @return a Request ready to send
+     */
     public Request getRequest();
 }

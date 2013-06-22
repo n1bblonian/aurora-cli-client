@@ -8,6 +8,16 @@ package ch.k42.auroracliclient.client;
  * To change this template use File | Settings | File Templates.
  */
 public interface QuorgProperties {
+    /**
+     *
+     * @return the static classname of this Quorg
+     */
     public String getClassname();
+
+    /**
+     * Compiles the properties for the specific Quorg to the
+     * format used with the Requests
+     * @return compiled properties of a quorg
+     */
     public String[] getSettings();
 }
